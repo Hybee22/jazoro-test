@@ -8,6 +8,7 @@ const {
   signAccessToken,
   verifyAccessToken,
 } = require('../utils/libs/jwt-helper');
+const { getLeaderPoints } = require('./leaderboardController');
 
 const createSendToken = (user, statusCode, res) => {
   const token = signAccessToken({ id: user._id });
@@ -61,6 +62,8 @@ exports.signup = catchAsync(async (req, res, next) => {
   })
 
   createSendToken(newUser, 201, res);
+  // Get LeaderBoard Data
+  getLeaderPoints()
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -79,6 +82,8 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // If all true, send token to user
   createSendToken(user, 200, res);
+  // Get LeaderBoard Data
+  getLeaderPoints()
 });
 
 // Logout User
