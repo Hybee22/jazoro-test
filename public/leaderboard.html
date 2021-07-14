@@ -69,7 +69,7 @@
             `
         })
 
-        socket.on('newUser', (data) => {
+        socket.on('newUser', ({data}) => {
             const list = document.createElement('li')
             list.id = `lp-${data.id}`
             list.className = 'list-group-item d-flex justify-content-between align-items-start'
