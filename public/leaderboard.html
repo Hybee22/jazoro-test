@@ -61,7 +61,12 @@
         
         socket.on('updatePoints', (data) => {
             const item = document.querySelector(`#lp-${data.id}`)
-            if(item) item.innerHTML = `${data.user} - ${data.point} pts`
+            if(item) item.innerHTML = `
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">${data.user}</div>
+                </div>
+                <span class="badge bg-success">${data.point} pts</span>
+            `
         })
 
         socket.on('newUser', (data) => {
