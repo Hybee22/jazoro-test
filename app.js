@@ -31,12 +31,10 @@ app.use(cookieParser());
 
 const userRouter = require('./routes/userRoutes');
 const pointRouter = require('./routes/pointRoutes');
-const leaderboardRouter = require('./routes/leaderboardRoutes');
 
 // Routes Middleware
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/points', pointRouter)
-app.use('/api/v1/leaderboard', leaderboardRouter)
 
 // Unhandles Routes
 app.all('*', (req, res, next) => {
