@@ -49,6 +49,7 @@ const io = socketIO(server, {
 io.on('connection', socket => {
     socket.on('join', (roomName) => {
         socket.join(roomName)
+        socket.emit('welcome', { text: 'Welcome... Please Login to continue -- Just use Postman 😁' })
     })
 })
 
@@ -57,6 +58,7 @@ global.io = io;
 
 // Event Emitter
 const eventEmitter = app.get('eventEmitter')
+
 eventEmitter.on('updatePoints', (data) => {
     io.to('leaderboardRoom').emit('updatePoints', data)
 })
