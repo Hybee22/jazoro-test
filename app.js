@@ -41,6 +41,11 @@ const pointRouter = require('./routes/pointRoutes');
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/points', pointRouter)
 
+// Default route
+app.get('/', (req, res) => {
+    res.redirect('/leaderboard.html')
+})
+
 // Unhandles Routes
 app.all('*', (req, res, next) => {
   next(
