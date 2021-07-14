@@ -49,7 +49,7 @@ const io = socketIO(server, {
 io.on('connection', socket => {
     socket.on('join', (roomName) => {
         socket.join(roomName)
-        socket.emit('welcome', { text: 'Welcome... Please Login to continue -- Just use Postman 😁' })
+        socket.emit('welcome', { text: 'Welcome... Please Login or Signup to continue -- Just use Postman 😁' })
     })
 })
 
