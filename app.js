@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const Emitter = require('events')
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const key = require('./utils/libs/gen-key');
@@ -25,6 +26,10 @@ app.use(express.static(__dirname + '/public'))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Events Emitter
+const eventEmitter = new Emitter()
+app.set('eventEmitter', eventEmitter)
 
 // Cookie Parser
 app.use(cookieParser());

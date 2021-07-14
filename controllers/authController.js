@@ -62,8 +62,10 @@ exports.signup = catchAsync(async (req, res, next) => {
   })
 
   createSendToken(newUser, 201, res);
-  // Get LeaderBoard Data
-  getLeaderPoints()
+
+    // Emit Event
+    const eventEmitter = req.app.get('eventEmitter')
+    eventEmitter.emit('newUser', { data: { id: newUser._id, user: newUser.username, point: 0 } })
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -82,8 +84,11 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // If all true, send token to user
   createSendToken(user, 200, res);
-  // Get LeaderBoard Data
-  getLeaderPoints()
+    // Emit Event
+    const eventEmitter = req.app.get('eventEmitter')
+    const points = await getLeaderPoints()
+
+    eventEmitter.emit('login_session', { data: points })
 });
 
 // Logout User

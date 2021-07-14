@@ -12,6 +12,7 @@ process.on('uncaughtException', (err) => {
 
 dotenv.config();
 const app = require('./app');
+const { getLeaderPoints } = require('./controllers/leaderboardController');
 
 const DB = process.env.JAZORO_TEST_DB.replace(
   '<password>',
@@ -45,8 +46,26 @@ const io = socketIO(server, {
     }
 })
 
+io.on('connection', socket => {
+    socket.on('join', (roomName) => {
+        socket.join(roomName)
+    })
+})
+
 // Set Socket to global variable
 global.io = io;
+
+// Event Emitter
+const eventEmitter = app.get('eventEmitter')
+eventEmitter.on('updatePoints', (data) => {
+    io.to('leaderboardRoom').emit('updatePoints', data)
+})
+eventEmitter.on('newUser', (data) => {
+    io.to('leaderboardRoom').emit('newUser', data)
+})
+eventEmitter.on('login_session', (data) => {
+    io.to('leaderboardRoom').emit('login_session', data)
+})
 
 // Catching Exceptions
 
